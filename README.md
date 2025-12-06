@@ -1,3 +1,31 @@
+🧩 Alur Sistem Pembayaran Bus
+1. Penumpang Naik di Halte A
+    • Pada aplikasi (misalnya dipakai oleh kondektur atau mesin di bus), ada tombol "Cetak Struk Awal".
+    • Saat ditekan, sistem akan:
+        ◦ Menyimpan data lokasi naik (halte A).
+        ◦ Menghasilkan barcode / QR Code berisi data:
+            ▪ ID tiket
+            ▪ Halte awal
+            ▪ Timestamp naik
+        ◦ Mencetak / menampilkan struk (berisi QR code tersebut).
+2. Penumpang Turun di Halte B
+    • Ketika bus berhenti di halte B, aplikasi mode "scan barcode" digunakan.
+    • QR code di scan → sistem membaca:
+        ◦ ID tiket
+        ◦ Halte awal
+3. Perhitungan Tarif
+    • Sistem menghitung ongkos berdasarkan rute:
+        ◦ Halte awal → halte tujuan
+    • Tarif bisa berdasarkan:
+        ◦ Jarak
+        ◦ Jumlah halte
+        ◦ Zona tarif
+    • Setelah scan, aplikasi menampilkan:
+        ◦ Halte awal
+        ◦ Halte tujuan
+        ◦ Total biaya
+=====================================================================================
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
