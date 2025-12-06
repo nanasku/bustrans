@@ -26,73 +26,224 @@
         ◦ Total biaya
 =======================================================
 
-# Getting Started with Create React App
+📋 Panduan Instalasi dan Menjalankan Aplikasi Bus Payment System
+📂 Struktur Project
+text
+bustrans/
+├── server/                    # Backend API (Express.js + MySQL)
+│   ├── controllers/
+│   ├── routes/
+│   ├── index.js
+│   └── db.js
+├── src/                      # Frontend React
+│   ├── components/
+│   └── App.js
+├── database/                 # File SQL database
+└── package.json
+🚀 Langkah Instalasi Lengkap
+1. Clone Repository
+bash
+git clone https://github.com/nanasku/bustrans.git
+cd bustrans
+2. Setup Database MySQL
+Install MySQL dari https://dev.mysql.com/downloads/installer/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Buka XAMPP atau MySQL Workbench
 
-## Available Scripts
+Buat database baru:
 
-In the project directory, you can run:
+sql
+CREATE DATABASE bus_payment;
+USE bus_payment;
+Import file SQL (jika ada database.sql di folder database):
 
-### `npm start`
+bash
+mysql -u root -p bus_payment < database/bus_payment.sql
+3. Konfigurasi Backend (Server)
+Masuk ke folder server:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+bash
+cd server
+Install dependencies backend:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+bash
+npm install express cors mysql2
+Konfigurasi koneksi database di server/db.js:
 
-### `npm test`
+javascript
+const db = mysql.createPool({
+    host: "localhost",
+    user: "root",           // sesuaikan dengan username MySQL
+    password: "",           // sesuaikan dengan password MySQL
+    database: "bus_payment"
+});
+Jalankan server backend:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+bash
+node index.js
+Server akan berjalan di http://localhost:5000
 
-### `npm run build`
+4. Konfigurasi Frontend (React)
+Kembali ke root folder:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+bash
+cd ..
+Install dependencies frontend:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+bash
+npm install
+Jika ada error tentang Node.js versi, set environment variable:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+bash
+# Windows (Command Prompt)
+set NODE_OPTIONS=--openssl-legacy-provider
 
-### `npm run eject`
+# Windows (PowerShell)
+$env:NODE_OPTIONS = "--openssl-legacy-provider"
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Linux/Mac
+export NODE_OPTIONS=--openssl-legacy-provider
+Jalankan aplikasi React:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+bash
+npm start
+Aplikasi akan terbuka di http://localhost:3000
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+📝 Setup Database Manual (Jika tidak ada file SQL)
+Buat tabel-tabel di MySQL:
+sql
+-- Tabel halte/stasiun
+CREATE TABLE stations (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(10) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    lat DECIMAL(10, 8) NOT NULL,
+    lng DECIMAL(11, 8) NOT NULL
+);
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+-- Tabel tiket
+CREATE TABLE tickets (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    ticket_code VARCHAR(50) UNIQUE NOT NULL,
+    start_station VARCHAR(10) NOT NULL,
+    start_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    end_station VARCHAR(10),
+    end_time DATETIME,
+    fare DECIMAL(10, 2),
+    status ENUM('active', 'completed') DEFAULT 'active',
+    FOREIGN KEY (start_station) REFERENCES stations(code)
+);
 
-## Learn More
+-- Tabel tarif
+CREATE TABLE fares (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    from_station VARCHAR(10) NOT NULL,
+    to_station VARCHAR(10) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (from_station) REFERENCES stations(code),
+    FOREIGN KEY (to_station) REFERENCES stations(code)
+);
+Insert data contoh:
+sql
+-- Data halte
+INSERT INTO stations (code, name, lat, lng) VALUES
+('SEN', 'Halte Senayan', -6.227, 106.799),
+('SUD', 'Halte Sudirman', -6.208, 106.818),
+('THA', 'Halte Thamrin', -6.185, 106.823),
+('KOT', 'Halte Kota', -6.135, 106.813);
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-- Data tarif
+INSERT INTO fares (from_station, to_station, price) VALUES
+('SEN', 'SUD', 5000),
+('SEN', 'THA', 7000),
+('SEN', 'KOT', 10000),
+('SUD', 'THA', 4000),
+('SUD', 'KOT', 8000),
+('THA', 'KOT', 5000);
+🔧 Troubleshooting
+Masalah Umum dan Solusi:
+Error: Cannot find module
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+bash
+# Hapus node_modules dan install ulang
+rm -rf node_modules package-lock.json
+npm install --legacy-peer-deps
+Error: Digital envelope routines::unsupported
 
-### Code Splitting
+bash
+# Set environment variable sebelum npm start
+set NODE_OPTIONS=--openssl-legacy-provider
+npm start
+Error: MySQL connection refused
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Pastikan MySQL service berjalan
 
-### Analyzing the Bundle Size
+Cek username/password di db.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Cek apakah database 'bus_payment' sudah dibuat
 
-### Making a Progressive Web App
+Peta tidak muncul
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Izinkan akses lokasi di browser
 
-### Advanced Configuration
+Pastikan koneksi internet aktif (untuk load tile map)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Refresh halaman
 
-### Deployment
+QR Scanner tidak bekerja
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Izinkan akses kamera di browser
 
-### `npm run build` fails to minify
+Pastikan menggunakan HTTPS atau localhost
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Coba browser lain (Chrome biasanya paling kompatibel)
+
+🌐 Akses Aplikasi
+Backend API: http://localhost:5000
+
+GET /api/stations - Daftar halte
+
+POST /api/tickets/create - Buat tiket baru
+
+POST /api/tickets/fare - Hitung tarif
+
+Frontend App: http://localhost:3000
+
+Peta dengan tracking lokasi real-time
+
+Generator tiket dengan QR code
+
+Scanner tiket untuk pembayaran
+
+📱 Fitur Aplikasi
+✅ Real-time Location Tracking - Deteksi halte terdekat
+✅ Ticket Generation - Buat tiket dengan QR code
+✅ QR Code Scanner - Scan tiket untuk pembayaran
+✅ Fare Calculation - Hitung tarif berdasarkan rute
+✅ Responsive Design - Tampilan optimal di semua device
+
+🐛 Reporting Issues
+Jika menemukan bug:
+
+Cek console browser (F12) untuk error detail
+
+Cek log server backend
+
+Pastikan semua dependency terinstall
+
+Buat issue di GitHub repository
+
+📄 Lisensi
+Project ini menggunakan lisensi MIT. Bebas digunakan, dimodifikasi, dan didistribusikan.
+
+🎯 Catatan Penting:
+
+Pastikan MySQL berjalan sebelum start backend
+
+Izinkan akses lokasi dan kamera saat diminta browser
+
+Untuk production, ganti credentials database dengan yang aman
+
+Update environment variables untuk konfigurasi yang berbeda
+
+Selamat menggunakan Aplikasi Bus Payment System! 🚌💳
