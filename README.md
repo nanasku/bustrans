@@ -28,18 +28,7 @@
 
 📋 Panduan Instalasi dan Menjalankan Aplikasi Bus Payment System
 📂 Struktur Project
-text
-bustrans/
-├── server/                    # Backend API (Express.js + MySQL)
-│   ├── controllers/
-│   ├── routes/
-│   ├── index.js
-│   └── db.js
-├── src/                      # Frontend React
-│   ├── components/
-│   └── App.js
-├── database/                 # File SQL database
-└── package.json
+
 🚀 Langkah Instalasi Lengkap
 1. Clone Repository
 bash
