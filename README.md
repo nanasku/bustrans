@@ -101,7 +101,7 @@ Aplikasi akan terbuka di http://localhost:3000
 📝 Setup Database Manual (Jika tidak ada file SQL)
 Buat tabel-tabel di MySQL:
 sql
--- Tabel halte/stasiun
+
 CREATE TABLE stations (
     id INT PRIMARY KEY AUTO_INCREMENT,
     code VARCHAR(10) UNIQUE NOT NULL,
@@ -110,7 +110,6 @@ CREATE TABLE stations (
     lng DECIMAL(11, 8) NOT NULL
 );
 
--- Tabel tiket
 CREATE TABLE tickets (
     id INT PRIMARY KEY AUTO_INCREMENT,
     ticket_code VARCHAR(50) UNIQUE NOT NULL,
@@ -123,7 +122,6 @@ CREATE TABLE tickets (
     FOREIGN KEY (start_station) REFERENCES stations(code)
 );
 
--- Tabel tarif
 CREATE TABLE fares (
     id INT PRIMARY KEY AUTO_INCREMENT,
     from_station VARCHAR(10) NOT NULL,
@@ -132,16 +130,13 @@ CREATE TABLE fares (
     FOREIGN KEY (from_station) REFERENCES stations(code),
     FOREIGN KEY (to_station) REFERENCES stations(code)
 );
-Insert data contoh:
-sql
--- Data halte
+
 INSERT INTO stations (code, name, lat, lng) VALUES
 ('SEN', 'Halte Senayan', -6.227, 106.799),
 ('SUD', 'Halte Sudirman', -6.208, 106.818),
 ('THA', 'Halte Thamrin', -6.185, 106.823),
 ('KOT', 'Halte Kota', -6.135, 106.813);
 
--- Data tarif
 INSERT INTO fares (from_station, to_station, price) VALUES
 ('SEN', 'SUD', 5000),
 ('SEN', 'THA', 7000),
@@ -149,6 +144,8 @@ INSERT INTO fares (from_station, to_station, price) VALUES
 ('SUD', 'THA', 4000),
 ('SUD', 'KOT', 8000),
 ('THA', 'KOT', 5000);
+
+
 🔧 Troubleshooting
 Masalah Umum dan Solusi:
 Error: Cannot find module
