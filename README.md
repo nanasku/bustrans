@@ -101,15 +101,13 @@ Konfigurasi koneksi database di server/db.js:
 
 
 const db = mysql.createPool({
-
     host: "localhost",
     
     user: "root",           // sesuaikan dengan username MySQL
     
     password: "",           // sesuaikan dengan password MySQL
     
-    database: "bus_payment"
-    
+    database: "bus_payment"    
 });
 
 
