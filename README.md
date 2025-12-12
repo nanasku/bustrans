@@ -100,15 +100,17 @@ npm install express cors mysql2
 Konfigurasi koneksi database di server/db.js:
 
 
-const db = mysql.createPool({
+    const db = mysql.createPool({
+   
     host: "localhost",
     
     user: "root",           // sesuaikan dengan username MySQL
     
     password: "",           // sesuaikan dengan password MySQL
     
-    database: "bus_payment"    
-});
+    database: "bus_payment"
+    
+    });
 
 
 Jalankan server backend:
@@ -160,7 +162,7 @@ Aplikasi akan terbuka di http://localhost:3000
 Buat tabel-tabel di MySQL:
 
 
-CREATE TABLE stations (
+    CREATE TABLE stations (
 
     id INT PRIMARY KEY AUTO_INCREMENT,
     
@@ -172,10 +174,10 @@ CREATE TABLE stations (
     
     lng DECIMAL(11, 8) NOT NULL
     
-);
+    );
 
 
-CREATE TABLE tickets (
+    CREATE TABLE tickets (
 
     id INT PRIMARY KEY AUTO_INCREMENT,
     
@@ -195,50 +197,50 @@ CREATE TABLE tickets (
     
     FOREIGN KEY (start_station) REFERENCES stations(code)
     
-);
+    );
 
 
-CREATE TABLE fares (
+     CREATE TABLE fares (
 
-    id INT PRIMARY KEY AUTO_INCREMENT,
+     id INT PRIMARY KEY AUTO_INCREMENT,
     
-    from_station VARCHAR(10) NOT NULL,
+     from_station VARCHAR(10) NOT NULL,
     
-    to_station VARCHAR(10) NOT NULL,
+     to_station VARCHAR(10) NOT NULL,
     
-    price DECIMAL(10, 2) NOT NULL,
+     price DECIMAL(10, 2) NOT NULL,
     
-    FOREIGN KEY (from_station) REFERENCES stations(code),
+     FOREIGN KEY (from_station) REFERENCES stations(code),
     
-    FOREIGN KEY (to_station) REFERENCES stations(code)
+     FOREIGN KEY (to_station) REFERENCES stations(code)
     
-);
+     );
 
 
-INSERT INTO stations (code, name, lat, lng) VALUES
-
-('SEN', 'Halte Senayan', -6.227, 106.799),
-
-('SUD', 'Halte Sudirman', -6.208, 106.818),
-
-('THA', 'Halte Thamrin', -6.185, 106.823),
-
-('KOT', 'Halte Kota', -6.135, 106.813);
-
-
-INSERT INTO fares (from_station, to_station, price) VALUES
-
-('SEN', 'SUD', 5000),
-
-('SEN', 'THA', 7000),
-
-('SEN', 'KOT', 10000),
-
-('SUD', 'THA', 4000),
-
-('SUD', 'KOT', 8000),
-
-('THA', 'KOT', 5000);
+    INSERT INTO stations (code, name, lat, lng) VALUES
+   
+    ('SEN', 'Halte Senayan', -6.227, 106.799),
+   
+    ('SUD', 'Halte Sudirman', -6.208, 106.818),
+   
+    ('THA', 'Halte Thamrin', -6.185, 106.823),
+   
+    ('KOT', 'Halte Kota', -6.135, 106.813);
+   
+   
+    INSERT INTO fares (from_station, to_station, price) VALUES
+   
+    ('SEN', 'SUD', 5000),
+   
+    ('SEN', 'THA', 7000),
+   
+    ('SEN', 'KOT', 10000),
+   
+    ('SUD', 'THA', 4000),
+   
+    ('SUD', 'KOT', 8000),
+   
+    ('THA', 'KOT', 5000);
 
 
 
