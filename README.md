@@ -67,40 +67,40 @@
 
 1. Clone Repository
 
-git clone https://github.com/nanasku/bustrans.git
-cd bustrans
+    git clone https://github.com/nanasku/bustrans.git
+    cd bustrans
 
 
 2. Setup Database MySQL
    
-Install MySQL dari https://dev.mysql.com/downloads/installer/
+   Install MySQL dari https://dev.mysql.com/downloads/installer/
 
-Buka XAMPP atau MySQL Workbench
+   Buka XAMPP atau MySQL Workbench
 
-Buat database baru:
+   Buat database baru:
 
 
-CREATE DATABASE bus_payment;
+   CREATE DATABASE bus_payment;
 
-USE bus_payment;
+   USE bus_payment;
 
-Import file SQL (jika ada database.sql di folder database):
+   Import file SQL (jika ada database.sql di folder database):
 
-mysql -u root -p bus_payment < database/bus_payment.sql
+    mysql -u root -p bus_payment < database/bus_payment.sql
 
 
 3. Konfigurasi Backend (Server)
    
-Masuk ke folder server:
+   Masuk ke folder server:
 
-cd server
+    cd server
 
-Install dependencies backend:
+   Install dependencies backend:
 
 
-npm install express cors mysql2
+    npm install express cors mysql2
 
-Konfigurasi koneksi database di server/db.js:
+   Konfigurasi koneksi database di server/db.js:
 
 
     const db = mysql.createPool({
@@ -116,53 +116,53 @@ Konfigurasi koneksi database di server/db.js:
     });
 
 
-Jalankan server backend:
+   Jalankan server backend:
 
-node index.js
+    node index.js
 
-Server akan berjalan di http://localhost:5000
+   Server akan berjalan di http://localhost:5000
 
 
 4. Konfigurasi Frontend (React)
    
-Kembali ke root folder:
+   Kembali ke root folder:
 
 
-cd ..
+    cd ..
 
-Install dependencies frontend:
+   Install dependencies frontend:
 
 
-npm install
+    npm install
 
-Jika ada error tentang Node.js versi, set environment variable:
+   Jika ada error tentang Node.js versi, set environment variable:
 
 
 # Windows (Command Prompt)
 
-set NODE_OPTIONS=--openssl-legacy-provider
+    set NODE_OPTIONS=--openssl-legacy-provider
 
 
 # Windows (PowerShell)
 
-$env:NODE_OPTIONS = "--openssl-legacy-provider"
+    $env:NODE_OPTIONS = "--openssl-legacy-provider"
 
 
 # Linux/Mac
 
-export NODE_OPTIONS=--openssl-legacy-provider
+    export NODE_OPTIONS=--openssl-legacy-provider
 
-Jalankan aplikasi React:
+   Jalankan aplikasi React:
 
 
-npm start
+    npm start
 
-Aplikasi akan terbuka di http://localhost:3000
+   Aplikasi akan terbuka di http://localhost:3000
 
 
 📝 Setup Database Manual (Jika tidak ada file SQL)
 
-Buat tabel-tabel di MySQL:
+   Buat tabel-tabel di MySQL:
 
 
     CREATE TABLE stations (
