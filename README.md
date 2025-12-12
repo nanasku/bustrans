@@ -1,4 +1,5 @@
 🧩 Alur Sistem Pembayaran Bus
+
 1. Penumpang Naik di Halte A
    • Pada aplikasi (misalnya dipakai oleh kondektur atau mesin di bus), ada tombol "Cetak Struk Awal".
    • Saat ditekan, sistem akan:
@@ -13,27 +14,36 @@
     • QR code di scan → sistem membaca:
         ◦ ID tiket
         ◦ Halte awal
+
 4. Perhitungan Tarif
-    • Sistem menghitung ongkos berdasarkan rute:
+
+   • Sistem menghitung ongkos berdasarkan rute:
         ◦ Halte awal → halte tujuan
-    • Tarif bisa berdasarkan:
+
+   • Tarif bisa berdasarkan:
         ◦ Jarak
         ◦ Jumlah halte
         ◦ Zona tarif
-    • Setelah scan, aplikasi menampilkan:
+
+   • Setelah scan, aplikasi menampilkan:
         ◦ Halte awal
         ◦ Halte tujuan
         ◦ Total biaya
+   
 =======================================================
 
+
 📋 Panduan Instalasi dan Menjalankan Aplikasi Bus Payment System
+
 📂 Struktur Project
 
 🚀 Langkah Instalasi Lengkap
+
 1. Clone Repository
 bash
 git clone https://github.com/nanasku/bustrans.git
 cd bustrans
+
 2. Setup Database MySQL
 Install MySQL dari https://dev.mysql.com/downloads/installer/
 
@@ -48,6 +58,7 @@ Import file SQL (jika ada database.sql di folder database):
 
 bash
 mysql -u root -p bus_payment < database/bus_payment.sql
+
 3. Konfigurasi Backend (Server)
 Masuk ke folder server:
 
