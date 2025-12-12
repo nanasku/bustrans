@@ -1,5 +1,6 @@
 🧩 Alur Sistem Pembayaran Bus
 
+
 1. Penumpang Naik di Halte A
    
    • Pada aplikasi (misalnya dipakai oleh kondektur atau mesin di bus), ada tombol "Cetak Struk Awal".
@@ -18,7 +19,8 @@
    
         ◦ Mencetak / menampilkan struk (berisi QR code tersebut).
    
-3. Penumpang Turun di Halte B
+   
+2. Penumpang Turun di Halte B
    
     • Ketika bus berhenti di halte B, aplikasi mode "scan barcode" digunakan.
    
@@ -27,8 +29,9 @@
         ◦ ID tiket
    
         ◦ Halte awal
+   
 
-5. Perhitungan Tarif
+3. Perhitungan Tarif
 
    • Sistem menghitung ongkos berdasarkan rute:
    
